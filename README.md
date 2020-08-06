@@ -1,4 +1,4 @@
-# Unscented kalaman filter with Constant Turn Rate Velocity Process model with Lidar and Radar sensor data fusion
+# Unscented kalman filter with Constant Turn Rate Velocity Process model with Lidar and Radar sensor data fusion
 
 <img src="Images/ukf.gif" width="900" height="500" />
 
