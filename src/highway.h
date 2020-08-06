@@ -26,8 +26,8 @@ public:
 	bool visualize_radar = true;
 	bool visualize_pcd = false;
 	// Predict path in the future using UKF
-	double projectedTime = 0;
-	int projectedSteps = 0;
+	double projectedTime = 2;
+	int projectedSteps = 4;
 	// --------------------------------
 
 	Highway(pcl::visualization::PCLVisualizer::Ptr& viewer)
@@ -35,7 +35,7 @@ public:
 
 		tools = Tools();
 	
-		egoCar = Car(Vect3(0, 0, 0), Vect3(4, 2, 2), Color(0, 1, 0), 0, 0, 2, "egoCar");
+		egoCar = Car(Vect3(0, 0, 0), Vect3(4, 2, 2), Color(1, 0, 0), 0, 0, 2, "egoCar");
 		
 		Car car1(Vect3(-10, 4, 0), Vect3(4, 2, 2), Color(0, 0, 1), 5, 0, 2, "car1");
 		
@@ -143,12 +143,12 @@ public:
 	
 			}
 		}
-		viewer->addText("Accuracy - RMSE:", 30, 300, 20, 1, 1, 1, "rmse");
+		viewer->addText("Accuracy - RMSE:", 30, 300, 20, 0, 0, 0, "rmse");
 		VectorXd rmse = tools.CalculateRMSE(tools.estimations, tools.ground_truth);
-		viewer->addText(" X: "+std::to_string(rmse[0]), 30, 275, 20, 1, 1, 1, "rmse_x");
-		viewer->addText(" Y: "+std::to_string(rmse[1]), 30, 250, 20, 1, 1, 1, "rmse_y");
-		viewer->addText("Vx: "	+std::to_string(rmse[2]), 30, 225, 20, 1, 1, 1, "rmse_vx");
-		viewer->addText("Vy: "	+std::to_string(rmse[3]), 30, 200, 20, 1, 1, 1, "rmse_vy");
+		viewer->addText(" X: "+std::to_string(rmse[0]), 30, 275, 20, 0, 0, 0, "rmse_x");
+		viewer->addText(" Y: "+std::to_string(rmse[1]), 30, 250, 20, 0, 0, 0, "rmse_y");
+		viewer->addText("Vx: "	+std::to_string(rmse[2]), 30, 225, 20, 0, 0, 0, "rmse_vx");
+		viewer->addText("Vy: "	+std::to_string(rmse[3]), 30, 200, 20, 0, 0, 0, "rmse_vy");
 
 		if(timestamp > 1.0e6)
 		{
