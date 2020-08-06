@@ -1,6 +1,6 @@
 # Unscented kalaman filter with Constant Turn Rate Velocity Process model with Lidar and Radar sensor data fusion
 
-<img src="media/ukf.gif" width="900" height="500" />
+<img src="Images/ukf.gif" width="900" height="500" />
 
 In this project we will implement an Unscented Kalman Filter to estimate the state of multiple cars on a highway using noisy lidar and radar measurements and  obtaining RMSE values that are lower that the tolerance outlined.
 
@@ -12,7 +12,7 @@ The main program can be built and ran by doing the following from the project to
 4. make
 5. ./ukf_highway
 
-Note that the programs that need to be written to accomplish the project are src/ukf.cpp, and src/ukf.h
+--> Note this project requires Eigen Library
 
 ## UKF Pipeline:
 
@@ -61,11 +61,16 @@ The red spheres above cars represent the (x,y) lidar detection and the purple li
 
 ## Unscented Kalman Filter
 The equations below describe the unscented Kalman filter and are implemented in `src/ukf.cpp` 
-![Algorithm_Unscented_Kalman_filter](docs/pics/Algorithm_Unscented_Kalman_filter.png)
-For explanations of what each variable means, please, refer to comments in the code in corresponding files or 
-the book "Thrun, S., Burgard, W. and Fox, D., 2005. Probabilistic robotics. MIT press."
+
+<img src="Images/Algorithm_Unscented_Kalman_filter.png" width="900" height="500" />
+
+For explanations of what each variable means, please, refer to comments in the code in corresponding files or go to [Thrun, S., Burgard, W. and Fox, D., 2005. Probabilistic robotics. MIT press](https://docs.ufpr.br/~danielsantos/ProbabilisticRobotics.pdf)
 
 ## Process Models
+
+Bicycle model to understand the state vector dimension.
+
+<img src="Images/processmodel.png" width="900" height="500" />
 
 ### CTRV (Constant Turn Rate and Velocity Magnitude)
 The CTRV process model is a process model where we assume the object moves with a constant turn rate and velocity,i.e with zero longitudinal and yaw accelerations. 
@@ -74,11 +79,12 @@ v represents the velocity module, yaw represents
 the [yaw angle](https://en.wikipedia.org/wiki/Aircraft_principal_axes), and yaw_rate represents the yaw velocity. The leftmost column in the following equation represents the non-linear process noise; 
 a_a represents longitudinal acceleration, and a_psi is yaw acceleration.
 
-![CTRV_process_model](docs/pics/CTRV_process_model.png)  
+<img src="Images/CTRV_process_model.png" width="900" height="500" />
+
 where 
-![CTRV_process_model_alpha](docs/pics/CTRV_process_model_alpha.png)
+<img src="Images/CTRV_process_model_alpha.png" width="700" height="400" />
 and
-![CTRV_process_model_beta](docs/pics/CTRV_process_model_beta.png)
+<img src="Images/CTRV_process_model_beta.png" width="700" height="400" />
 
 
 ## Measurement Models
@@ -87,19 +93,20 @@ and
 
 The measurement vector consists of 2 components ( px, py ) where p\* represents the position. 
 The transformation from the state space to the Lidar measurement space is as follows  
-![Lidar_measurement_model](docs/pics/Lidar_measurement_model.png)
-where
-![Lidar_measurement_model_H](docs/pics/Lidar_measurement_model_H.png)
-The Lidar measurement model is implemented as 
-a [LidarMeasurementModel](src/measurement_models/LidarMeasurementModel.hpp) class.
+
+<img src="Images/Lidar_measurement_model.png" width="900" height="500" />
+
 
 ### Radar
 The Radar measurement model is a non-linear measurement model. The measurement vector consists of 3 components ( range,bearing, range_rate ) where the range is a radial distance from the origin, 
  the bearing is an angle between range and X-axis which points into the direction of the heading of the vehicle, range_rate is a radial velocity. 
  The transformation from the state space to the Radar measurement space is as follows  
-![Radar_measurement_model](docs/pics/Radar_measurement_model.png)
+
+<img src="Images/Radar_measurement_model.png" width="900" height="500" />
+
 where
-![Radar_measurement_model_h](docs/pics/Radar_measurement_model_h.png)
+
+<img src="Images/Radar_measurement_model_h.png" width="900" height="500" />
 
 All the sensor update and prediction step can be found in `src/ukf.cpp`.
 
